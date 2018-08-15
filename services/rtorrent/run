@@ -5,7 +5,11 @@ rm -f /detach_sess/.rtorrent || true
 sleep 1s
 fi
 
-dtach -n /detach_sess/.rtorrent /sbin/setuser abc /usr/bin/rtorrent -n -o import=/config/rtorrent/rtorrent.rc
+# Start rtorrent
+/usr/bin/tmux new-session -d -s rt -n rtorrent  "export TERM=screen-256color; tmux source-file /config/tmux.conf; /sbin/setuser abc /config/rtorrent-ps-ch-1.8.0-0.9.7/bin/rtorrent  -n -o import=/config/rtorrent/rtorrent.rc;"
+
+# Start flood
+/usr/bin/tmux new-session -d -s fl -n flood "cd /config/flood; /sbin/setuser abc /usr/bin/npm start"
 
 
 sleep 1s
